@@ -1,0 +1,83 @@
+<div class="card bg-secondary shadow">
+    <div class="card-header bg-white border-0">
+      <div class="row align-items-center">
+        <div class="col-8">
+          <h3 class="mb-0">Add Course</h3>
+        </div>
+        <div class="col-4 text-right" *ngIf="!show" (click)="show = !show">
+          <a class="btn btn-sm btn-primary">Show</a>
+        </div>
+        <div class="col-4 text-right" *ngIf="show">
+            <a  class="btn btn-sm btn-primary" (click)="show = !show">Hide</a>
+          </div>
+        
+      </div>
+    </div>
+    <div class="card-body" *ngIf="show">
+      <form [formGroup]="courseForm" (ngSubmit)="add()" >
+        
+        <h6 class="heading-small text-muted mb-4">Course Information</h6>
+        <br>
+        <div class="alert alert-success" *ngIf="success" role="alert">
+          <strong>Success!</strong> This course is add with success!
+        </div>
+        
+        <div class="alert alert-danger" *ngIf="error" role="alert">
+            <strong>Error!</strong> Please check your input !
+        </div>
+        <div class="pl-lg-4">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class="form-control-label" for="input-username">Titre</label>
+                <input type="text" id="input-username" formControlName="title" class="form-control form-control-alternative" placeholder="Titre" >
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class="form-control-label" for="input-email">Classes</label>
+                <select class="form-control" formControlName="class" multiple>
+                    <optgroup label="INDP1" >
+                        <option>INDP1 A</option>
+                        <option>INDP1 B</option>
+                        <option>INDP1 C</option>
+                        <option>INDP1 D</option>
+                        <option>INDP1 E</option>
+                        <option>INDP1 F</option>
+                    </optgroup>
+                    <optgroup label="INDP2" >
+                        <option>INDP2 A</option>
+                        <option>INDP2 B</option>
+                        <option>INDP2 C</option>
+                        <option>INDP2 D</option>
+                        <option>INDP2 E</option>
+                    </optgroup>
+                </select>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class="form-control-label" for="input-first-name">Matière</label>
+                <input type="text" formControlName="matier" id="input-first-name" class="form-control form-control-alternative" placeholder="Matière" >
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="form-group">
+                <label class="form-control-label" for="input-last-name">Fichier</label>
+                <input type="file" id="input-last-name" (change)="onFileChange($event)" class="form-control form-control-alternative">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-12 text-right" *ngIf="show">
+            <button type="submit" class="btn btn-primary" [disabled]="loading"><span *ngIf="!loading">Add</span><mat-spinner diameter="20" *ngIf="loading"></mat-spinner>
+            </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <br>
+  <br>
+  
