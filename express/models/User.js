@@ -1,5 +1,16 @@
 import mongoose from "mongoose";
 
+import mongooseSequence from "mongoose-sequence";
+
+const autoIncrement = mongooseSequence(mongoose);
+
+const opts = {
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  }
+};
+
 const userSchema = mongoose.Schema(
   {
     name: {
@@ -19,18 +30,27 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
     },
-    class: String,
+    class: {
+      type:String
+    },
     type: {
       type: Number,
       default: 1,
     },
-    photo: String,
-    department: String,
+    photo: {
+      type:String
+    },
+    departement: {
+      type:String
+    },
+    email_verified_at: {
+      type: Date,
+    },
   },
-  {
-    timestamps: true,
-  }
+  opts
 );
+
+userSchema.plugin(autoIncrement, { inc_field: "id" });
 
 const User = mongoose.model("User", userSchema);
 

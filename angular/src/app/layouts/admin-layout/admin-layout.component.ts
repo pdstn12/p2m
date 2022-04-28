@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 
-import { HttpClient, HttpResponse ,HttpHeaders } from '@angular/common/http';
-
-
 @Component({
   selector: 'app-admin-layout',
   templateUrl: './admin-layout.component.html',
@@ -10,7 +7,7 @@ import { HttpClient, HttpResponse ,HttpHeaders } from '@angular/common/http';
 })
 export class AdminLayoutComponent implements OnInit {
 
-  constructor(private http : HttpClient) { }
+  constructor() { }
 
   ngOnInit() {
   }
