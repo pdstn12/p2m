@@ -1,9 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { HttpClient, HttpResponse } from '@angular/common/http';
-import { RouterModule , Router } from '@angular/router';
-import { FormBuilder , FormGroup , FormControl} from '@angular/forms';
-import { SERVER_API_URL } from 'src/app/app.constants';
-import User  from 'src/app/modules/user';
+import { Router } from '@angular/router';
+import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import User from 'src/app/models/user';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -17,12 +16,12 @@ export class LoginComponent implements OnInit, OnDestroy {
   serverErrors = [];
 
   // private auth: CommonAuthService, 
-  constructor(private fb : FormBuilder , private http : HttpClient , private router: Router) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.loginForm = this.fb.group({
-      'email' :'',
-      'password'  :''
+      'email': '',
+      'password': ''
     });
   }
 
@@ -32,19 +31,19 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
 
-  login(){
+  login() {
     console.log("o");
     console.log(this.loginForm.getRawValue());
 
-    this.http.post(SERVER_API_URL + 'api/login', this.loginForm.getRawValue()).subscribe(
-      (response : User) => {
+    this.authService.login(this.loginForm.getRawValue()).subscribe(
+      (response: User) => {
         console.log(response);
         localStorage.removeItem('token');
         localStorage.setItem('token', response.access_token);
-        if(response.user.type == 0){
+        if (response.user.type == 0) {
           localStorage.removeItem('is_admin');
           localStorage.setItem('is_admin', '1');
-        }else {
+        } else {
           localStorage.removeItem('is_admin');
           localStorage.setItem('is_admin', '0');
         }
@@ -58,7 +57,7 @@ export class LoginComponent implements OnInit, OnDestroy {
         this.router.navigate(['/login']);
 
       }
-      );
+    );
   }
 
 
@@ -67,7 +66,3 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
 }
-
-
-
-// import { CommonAuthService } from '../common-auth.service';

@@ -1,34 +1,57 @@
 import mongoose from "mongoose";
 
-const userSchema = mongoose.Schema({
+import mongooseSequence from "mongoose-sequence";
+
+const autoIncrement = mongooseSequence(mongoose);
+
+const opts = {
+  timestamps: {
+    createdAt: 'created_at',
+    updatedAt: 'updated_at'
+  }
+};
+
+const userSchema = mongoose.Schema(
+  {
     name: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     email: {
-        type: String,
-        unique: true,
-        required: true
+      type: String,
+      unique: true,
+      required: true,
     },
     password: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
     phone: {
-        type: String,
-        required: true
+      type: String,
+      required: true,
     },
-    class: String,
+    class: {
+      type:String
+    },
     type: {
-        type: Number,
-        default: 1
+      type: Number,
+      default: 1,
     },
-    photo: String,
-    department: String,
-}, {
-    timestamps: true
-});
+    photo: {
+      type:String
+    },
+    departement: {
+      type:String
+    },
+    email_verified_at: {
+      type: Date,
+    },
+  },
+  opts
+);
 
-const User = mongoose.model('User', userSchema);
+userSchema.plugin(autoIncrement, { inc_field: "id" });
+
+const User = mongoose.model("User", userSchema);
 
 export default User;
