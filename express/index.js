@@ -3,16 +3,22 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import fileUpload from 'express-fileupload';
 
 import userRouter from "./routes/usersRouter.js";
+import fileRouter from "./routes/filesRouter.js";
 
 const app = express();
+
+app.use(fileUpload());
 
 app.use(bodyParser.json({ limit: "30mb", extended: true }))
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }))
 app.use(cors());
 
+
 app.use('/api', userRouter);
+app.use('/api/file', fileRouter);
 
 app.get('/', (req, res) => {
     res.send('Hello to our API');
