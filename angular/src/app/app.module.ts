@@ -23,7 +23,6 @@ import { ComponentsModule } from './components/components.module';
     FormsModule,
     HttpClientModule,
     ComponentsModule,
-    NgbModule,
     RouterModule,
     AppRoutingModule,
     ReactiveFormsModule,

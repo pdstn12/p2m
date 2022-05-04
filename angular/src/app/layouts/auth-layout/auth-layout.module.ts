@@ -10,11 +10,10 @@ import { RegisterComponent } from '../../pages/register/register.component';
 @NgModule({
   imports: [
     CommonModule,
-    // RouterModule.forChild(AuthLayoutRoutes),
+    RouterModule.forChild(AuthLayoutRoutes),
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    NgModule
   ],
   declarations: [
     LoginComponent,
