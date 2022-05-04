@@ -59,7 +59,7 @@ class FileController extends Controller
 
             ]);
             // return $request->class;
-            $path = UploadController::upload($request->file('course'), ["jpg" , "png" , "jpeg"]);
+            $path = UploadController::upload($request->file('course'), ["jpg" , "png" , "jpeg" ,"pdf" , "doc", 'docx']);
             if($path == "error")
                 abort(422);
             $file = File::create([

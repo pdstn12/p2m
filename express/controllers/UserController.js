@@ -33,7 +33,7 @@ export const signIn = async (req, res) => {
     const token = jwt.sign(
       {
         email: existingUser.email,
-        id: existingUser._id,
+        id: existingUser.id,
       },
       "test",
       { expiresIn: "1h" }
@@ -67,13 +67,13 @@ export const signUp = async (req, res) => {
     const token = jwt.sign(
       {
         email: user.email,
-        id: result._id,
+        id: result.id,
       },
       "test",
       { expiresIn: "1h" }
     );
 
-    res.status(200).json({ user: existingUser, access_token: token });
+    res.status(200).json({ user: result, access_token: token });
   } catch (error) {
     res.status(500).json({ message: "Something went wrong." });
   }
@@ -91,4 +91,25 @@ export const createUser = async (req, res) => {
   } catch (error) {
     res.status(409).json({ message: error.message });
   }
+};
+
+export const getCurrentUser = async (req, res, next) => {
+  if (req.headers && req.headers.authorization) {
+    var authorization = req.headers.authorization.split(" ")[1],
+      decoded;
+    try {
+      decoded = jwt.verify(authorization, 'test');
+    } catch (e) {
+      return res.status(401).send("unauthorized");
+    }
+    var userId = decoded.id;
+    // Fetch the user by id
+    const currUser = await User.findOne({ id: userId });
+
+    req.userId = currUser.id;
+    req.userType = currUser.type;
+    req.userClass = currUser.class;
+    next();
+  }
+  else return res.status(403).json({ message: "You are not authorized to access this page" });
 };

@@ -4,6 +4,8 @@ namespace Tests\Unit;
 
 use Illuminate\Http\UploadedFile;
 use Tests\TestCase;
+use Illuminate\Support\Facades\Storage;
+use App\Models\User;
 
 class FileTest extends TestCase
 {
@@ -17,56 +19,40 @@ class FileTest extends TestCase
     //     $this->assertTrue(true);
     // }
 
-    // public function testSuccessfulFileAdd()
-    // {
-    //     Storage::fake('local');
-    //     $file = UploadedFile::fake()->create('file.jpg');
-    //     $user = User::first();
-    //     $accessToken = $user->createToken('authToken')->accessToken;
+    public function testSuccessfulFileGet()
+    {
+        $user = User::first();
+        $accessToken = $user->createToken('authToken')->accessToken;
 
-    //     $userData = [
-    //         "title" => "John Doe",
-    //         "path" => "doe@example.com",
-    //         "matier" => "22222123",
-    //         "class" => "INDP1 A",
-    //     ];
+        $this->get('api/file/1', ['Accept' => 'application/json' , 'Authorization' => 'Bearer '.$accessToken ])
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                "files",
+                "count"
+            ]);
+    }
 
-    //     $this->json('POST', 'api/register', $userData, ['Accept' => 'application/json'])
-    //         ->assertStatus(200)
-    //         ->assertJsonStructure([
-    //             "user" => [
-    //                 'id',
-    //                 'name',
-    //                 'phone',
-    //                 'class',
-    //                 'email',
-    //                 'created_at',
-    //                 'updated_at',
-    //             ],
-    //             "access_token"
-    //         ]);
-    // }
+    public function testSuccessfulFileAdd()
+    {
+        Storage::fake('local');
+        $file = UploadedFile::fake()->create('file.jpg');
+        $user = User::first();
+        $accessToken = $user->createToken('authToken')->accessToken;
 
-    // public function testLoginRegistration()
-    // {
-    //     $userData = [
-    //         "email" => "doe@example.com",
-    //         "password" => "demo12345"
-    //     ];
+        $fileData = [
+            "title" => "John Doe",
+            "course" => $file,
+            "matier" => "22222123",
+            "class" => "INDP1 A",
+        ];
 
-    //     $this->json('POST', 'api/login', $userData, ['Accept' => 'application/json'])
-    //         ->assertStatus(200)
-    //         ->assertJsonStructure([
-    //             "user" => [
-    //                 'id',
-    //                 'name',
-    //                 'phone',
-    //                 'class',
-    //                 'email',
-    //                 'created_at',
-    //                 'updated_at',
-    //             ],
-    //             "access_token"
-    //         ]);
-    // }
+        $this->json('POST', 'api/file/add', $fileData, ['Accept' => 'application/json' , 'Authorization' => 'Bearer '.$accessToken ])
+            ->assertStatus(200)
+            ->assertJsonStructure([
+                "message"
+            ]);
+    }
+
+    
+
 }

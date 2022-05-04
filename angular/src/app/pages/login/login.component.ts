@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
 
   login() {
-    console.log("o");
+
     console.log(this.loginForm.getRawValue());
 
     this.authService.login(this.loginForm.getRawValue()).subscribe(
