@@ -1,27 +1,17 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { NgModule } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { AuthLayoutComponent } from './auth-layout.component';
-import { AuthLayoutRoutes } from './auth-layout.routing';
 
-import { AuthLayoutModule } from './auth-layout.module';
+import { RouterTestingModule } from '@angular/router/testing';
 describe('AuthLayoutComponent', () => {
   let component: AuthLayoutComponent;
   let fixture: ComponentFixture<AuthLayoutComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ AuthLayoutComponent],
-
-      imports: [ 
-      AuthLayoutRoutes,
-      FormsModule,
-      ReactiveFormsModule,
-      HttpClientModule,
-      NgModule
-],
-
+      imports: [
+        RouterTestingModule
+      ],
+      declarations: [AuthLayoutComponent]
     })
     .compileComponents();
   }));
