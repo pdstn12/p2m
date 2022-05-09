@@ -130,4 +130,5 @@ dist
 .pnp.*
 
 #uploads
-storage/course/*
+storage/course/*.png
+storage/course/*.jpg

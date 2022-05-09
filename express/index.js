@@ -20,6 +20,8 @@ app.use(cors());
 app.use('/api', userRouter);
 app.use('/api/file', fileRouter);
 
+app.use(express.static('storage'))
+
 app.get('/', (req, res) => {
     res.send('Hello to our API');
 });
@@ -29,3 +31,5 @@ const PORT = process.env.PORT || 8000;
 mongoose.connect('mongodb://rootuser:rootpass@localhost:27017/p2m?authSource=admin')
     .then(() => app.listen(PORT, () => console.log(`Server running on port ${PORT}`)))
     .catch((error) => console.log(error));
+
+//module.exports = app;

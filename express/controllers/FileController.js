@@ -19,22 +19,9 @@ export const addFile = async (req, res) => {
       let extension = file.name.split(".")[1];
       let newDate = Date.now();
       fileName = `${fileName}_${newDate}.${extension}`;
-      let uploadPath = `./storage/course/${fileName}`;
+      let uploadPath = `storage/course/${fileName}`;
 
-      file.mv(
-        uploadPath /* , (err) => {
-        if (err) return res.status(500).send(err);
-        res.send({
-          status: true,
-          message: "File is uploaded",
-          data: {
-            name: file.name,
-            mimetype: file.mimetype,
-            size: file.size,
-          },
-        });
-      } */
-      );
+      file.mv("./" + uploadPath);
 
       const newFile = new FileModel({
         title,
@@ -42,6 +29,7 @@ export const addFile = async (req, res) => {
         class: classe,
         matier,
         user_id: req.userId,
+        user: req.user_id,
       });
 
       try {
@@ -67,7 +55,8 @@ export const getFile = async (req, res) => {
     const files = await FileModel.find({})
       .sort({ created_at: "desc" })
       .skip(page * postOnPage)
-      .limit(postOnPage);
+      .limit(postOnPage)
+      .populate("user");
 
     return res.status(200).json({ files: files, count: files.length });
   } else {
@@ -75,7 +64,8 @@ export const getFile = async (req, res) => {
     const files = await FileModel.find({ class: userClass })
       .sort({ created_at: "desc" })
       .skip(page * postOnPage)
-      .limit(postOnPage);
+      .limit(postOnPage)
+      .populate("user");
 
     return res.status(200).json({ files: files, count: files.length });
   }
