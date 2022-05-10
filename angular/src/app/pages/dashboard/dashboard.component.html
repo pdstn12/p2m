@@ -5,7 +5,7 @@
   </div>
 </div>
 <div class="container-fluid mt--7">
-  <app-add-course *ngIf="this.is_admin == '1'"></app-add-course>
+  <app-add-course *ngIf="this.is_admin == '1'" (added)="getCourses(1)"></app-add-course>
   <div class="row">
     <div class="col">
       <div class="card shadow">
@@ -24,34 +24,32 @@
                 <th scope="col" *ngIf="this.is_admin == '1'">Delete</th>
               </tr>
             <tbody *ngIf="!courseLoading">
-              <tr *ngFor="let course of courses ">
-                <th *ngIf="this.course.class == course.class" scope="row">
-                  {{ course.id }}-{{ course.title }}
+              <tr *ngFor="let cours of courses ">
+                <th *ngIf="this.cours.class == cours.class" scope="row">
+                  {{ cours.id }}-{{ cours.title }}
                 </th>
                 <td>
                   <div class="media align-items-center">
-                    <a href="javascript:void(0)" class="avatar rounded-circle mr-3">
-                      <img alt="Image placeholder" src="{{ SERVER_API_URL+course.user.photo.substring(8) }}">
-                    </a>
+
                     <div class="media-body">
-                      <span class="mb-0 text-sm">{{ course.user.name }}</span>
+                      <span class="mb-0 text-sm">{{ cours.user.name }}</span>
                     </div>
                   </div>
                 </td>
                 <td>
                   <span class="badge badge-dot mr-4">
-                    {{ course.matier }}
+                    {{ cours.matier }}
                   </span>
                 </td>
                 <td>
-                  {{ course.class }}
+                  {{ cours.class }}
                 </td>
                 <td>
-                  <a type="button" class="btn btn-primary" href="{{ SERVER_API_URL+course.path.substring(8)  }}" target="_blank">Download</a>
+                  <a type="button" class="btn btn-primary" href="{{ SERVER_API_URL+cours.path.substring(8)  }}" target="_blank">Download</a>
                   
                 </td>
                 <td *ngIf="this.is_admin == '1'" class="text-right">
-                  <button type="button" class="btn btn-danger"(click)="delete(course.id)">Delete</button>
+                  <button type="button" class="btn btn-danger"(click)="delete(cours.id)">Delete</button>
 
                 </td>
               </tr>

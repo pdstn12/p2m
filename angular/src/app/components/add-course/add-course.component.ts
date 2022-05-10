@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit , Output} from '@angular/core';
 import { FormBuilder , FormGroup , FormControl} from '@angular/forms';
 import { CourseService } from '../../services/course.service';
 import  response  from '../../models/response';
@@ -11,7 +11,7 @@ import  response  from '../../models/response';
 })
 export class AddCourseComponent implements OnInit {
   
-  
+  @Output() added = new EventEmitter<boolean>();
   public show = false;
   public courseForm: FormGroup;
   serverErrors = [];
@@ -63,10 +63,12 @@ export class AddCourseComponent implements OnInit {
       if ( response.message == "success" ){
         this.success = true; 
         this.error = false; 
+        this.added.emit(true);
       }else{
         this.success = false; 
         this.error = true; 
       }
+
     } , 
     (error : any) => {
       this.success = false; 
