@@ -107,6 +107,7 @@ export const getCurrentUser = async (req, res, next) => {
     const currUser = await User.findOne({ id: userId });
 
     req.userId = currUser.id;
+    req.user_id = currUser._id;
     req.userType = currUser.type;
     req.userClass = currUser.class;
     next();
