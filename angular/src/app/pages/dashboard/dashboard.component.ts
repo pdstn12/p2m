@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit , Output } from '@angular/core';
 import files from '../../models/files';
 import File from '../../models/file';
 import { CourseService } from "../../services/course.service";
@@ -37,7 +37,10 @@ export class DashboardComponent implements OnInit {
     console.log(this.previewsPage);
 
     this.course.getCourses(page - 1).subscribe((response: files) => {
+      console.log(response);
       this.courses = response.files;
+      console.log(this.courses);
+      
       this.count = response.count;
       console.log(response.count);
 

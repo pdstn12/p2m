@@ -45,7 +45,7 @@ services:
     networks: # Networks to join (Services on the same network can communicate with each other using their name) 
       - backend
       - frontend
-    entrypoint: ["bash" , "-c" , "cd /app && php artisan serve --host=0.0.0.0 --port=8000 "] # php artisan migrate && php artisan db:seed &&
+    entrypoint: ["bash" , "-c" , "cd /app && php artisan storage:link && php artisan serve --host=0.0.0.0 --port=8000 "] # php artisan migrate && php artisan db:seed &&
  
   # Frontend Service 
   app-client:
