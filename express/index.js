@@ -8,7 +8,7 @@ import fileUpload from 'express-fileupload';
 import userRouter from "./routes/usersRouter.js";
 import fileRouter from "./routes/filesRouter.js";
 
-const app = express();
+export const app = express();
 
 app.use(fileUpload());
 
@@ -26,10 +26,8 @@ app.get('/', (req, res) => {
     res.send('Hello to our API');
 });
 
-const PORT = process.env.PORT || 8000;
+/* const PORT = process.env.PORT || 8000;
 
 mongoose.connect('mongodb://rootuser:rootpass@localhost:27017/p2m?authSource=admin')
     .then(() => app.listen(PORT, () => console.log(`Server running on port ${PORT}`)))
-    .catch((error) => console.log(error));
-
-//module.exports = app;
+    .catch((error) => console.log(error)); */

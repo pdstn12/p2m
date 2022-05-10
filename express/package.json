@@ -2,10 +2,10 @@
   "name": "express",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.js",
   "type": "module",
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon main.js",
     "test": "jest --watchAll --verbose"
   },
   "keywords": [],
@@ -27,6 +27,7 @@
     "nodemon": "^2.0.15"
   },
   "devDependencies": {
+    "@babel/plugin-transform-modules-commonjs": "^7.17.9",
     "supertest": "^6.2.3"
   }
 }
