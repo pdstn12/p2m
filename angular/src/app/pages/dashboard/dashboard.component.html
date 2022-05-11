@@ -49,7 +49,7 @@
                   
                 </td>
                 <td *ngIf="this.is_admin == '1'" class="text-right">
-                  <button type="button" class="btn btn-danger"(click)="delete(cours.id)">Delete</button>
+                  <button type="button" class="btn btn-danger"(click)="delete(cours.id ?? cours.fileId )">Delete</button>
 
                 </td>
               </tr>
