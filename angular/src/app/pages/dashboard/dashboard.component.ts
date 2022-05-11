@@ -59,9 +59,9 @@ export class DashboardComponent implements OnInit {
   }
 
 
-  public delete(id) {
+  public delete(course) {
 
-    this.course.deleteCourse(id).subscribe((response: files) => {
+    this.course.deleteCourse(course.id ?? course.fileId).subscribe((response: files) => {
 
 
       this.getCourses(this.currentPage);
